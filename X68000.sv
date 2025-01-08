@@ -58,6 +58,7 @@ module emu
 	input  [11:0] HDMI_WIDTH,
 	input  [11:0] HDMI_HEIGHT,
 	output        HDMI_FREEZE,
+	output        HDMI_BLACKOUT,
 
 `ifdef MISTER_FB
 	// Use framebuffer in DDRAM
@@ -185,6 +186,7 @@ assign {DDRAM_CLK, DDRAM_BURSTCNT, DDRAM_ADDR, DDRAM_DIN, DDRAM_BE, DDRAM_RD, DD
 assign VGA_SCALER = 0;
 assign VGA_DISABLE = 0;
 assign HDMI_FREEZE = 0;
+assign HDMI_BLACKOUT = 0;
 
 assign LED_POWER = 0;
 assign BUTTONS = 0;
@@ -565,7 +567,7 @@ always @(posedge clk_sys) begin
 	div_snd2 <= div_snd2 + 1'd1;
 	div_opm <= div_opm + 1'd1;
 
-	if (div_snd2 == 9) div_snd <= 0;
+	if (div_snd2 == 9) div_snd2 <= 0;
 	if (div_snd == 4)  div_snd <= 0;
 	if (div_opm == 19) div_opm <= 0;
 
